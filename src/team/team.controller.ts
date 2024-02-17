@@ -6,6 +6,8 @@ import {
   Param,
   Delete,
   Put,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { TeamService } from './team.service';
 import { CreateTeamDto } from './dto/create-team.dto';
@@ -15,7 +17,7 @@ import { UpdateTeamDto } from './dto/update-team.dto';
 export class TeamController {
   constructor(private readonly teamService: TeamService) {}
 
-  @Post()
+  @Post('/new')
   create(@Body() createTeamDto: CreateTeamDto) {
     return this.teamService.create(createTeamDto);
   }
@@ -36,6 +38,7 @@ export class TeamController {
   }
 
   @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   remove(@Param('id') id: string) {
     return this.teamService.remove(+id);
   }

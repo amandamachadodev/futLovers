@@ -6,6 +6,8 @@ import {
   Param,
   Delete,
   Put,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { PlayerService } from './player.service';
 import { CreatePlayerDto } from './dto/create-player.dto';
@@ -15,12 +17,12 @@ import { UpdatePlayerDto } from './dto/update-player.dto';
 export class PlayerController {
   constructor(private readonly playerService: PlayerService) {}
 
-  @Post('players/new')
+  @Post('player/new')
   create(@Body() createPlayerDto: CreatePlayerDto) {
     return this.playerService.create(createPlayerDto);
   }
 
-  @Get('/')
+  @Get()
   findAll() {
     return this.playerService.findAll();
   }
@@ -35,7 +37,8 @@ export class PlayerController {
     return this.playerService.update(+id, updatePlayerDto);
   }
 
-  @Delete('players/:id')
+  @Delete('player/:id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   remove(@Param('id') id: string) {
     return this.playerService.remove(+id);
   }
