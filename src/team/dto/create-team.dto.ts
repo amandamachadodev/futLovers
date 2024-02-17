@@ -1,14 +1,8 @@
-import { Prisma } from '@prisma/client';
 import { Team } from '../entities/team.entity';
-import { IsDate, IsInt, IsString } from '@nestjs/class-validator';
+import { IsString, IsNotEmpty } from 'class-validator';
 
 export class CreateTeamDto extends Team {
   @IsString()
+  @IsNotEmpty()
   name: string;
-  @IsDate()
-  created_at: Date;
-  @IsDate()
-  updated_at: Date;
-  @IsInt()
-  Player: Prisma.PlayerCreateNestedManyWithoutTeamInput;
 }
