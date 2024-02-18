@@ -28,7 +28,6 @@ __decorate([
 ], CreatePlayerDto.prototype, "age", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.MinLength)(3),
     __metadata("design:type", Object)
 ], CreatePlayerDto.prototype, "team", void 0);
 //# sourceMappingURL=create-player.dto.js.map
