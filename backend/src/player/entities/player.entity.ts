@@ -5,5 +5,5 @@ export class Player implements Prisma.PlayerCreateInput {
   age: number;
   created_at: Date;
   updated_at: Date;
-  team: Prisma.TeamCreateNestedOneWithoutPlayerInput;
+  team_id: number;
 }
