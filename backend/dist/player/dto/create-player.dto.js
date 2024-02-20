@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreatePlayerDto = void 0;
-const client_1 = require("@prisma/client");
 const player_entity_1 = require("../entities/player.entity");
 const class_validator_1 = require("class-validator");
 class CreatePlayerDto extends player_entity_1.Player {
@@ -28,6 +27,6 @@ __decorate([
 ], CreatePlayerDto.prototype, "age", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", Object)
-], CreatePlayerDto.prototype, "team", void 0);
+    __metadata("design:type", Number)
+], CreatePlayerDto.prototype, "team_id", void 0);
 //# sourceMappingURL=create-player.dto.js.map

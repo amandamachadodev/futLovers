@@ -9,12 +9,6 @@ export class PlayerService {
   constructor(private prisma: PrismaService) {}
 
   async create(createPlayerDto: CreatePlayerDto): Promise<Player> {
-    const team = createPlayerDto.team.create.name;
-    if (team.length < 4) {
-      throw new Error(
-        'Nome do time não pode estar vazio ou ter menos de 4 caracteres.',
-      );
-    }
     return this.prisma.player.create({
       data: createPlayerDto,
       include: {
