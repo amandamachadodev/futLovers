@@ -7,7 +7,7 @@ import deleteItemAlert from "../util/sweetAlert";
 import { getPlayers } from "../util/api";
 
 
-export default function Table({ players }: Players) {
+export default function Page({ players }: Players) {
   return (
     <div>
       <h1>Players</h1>

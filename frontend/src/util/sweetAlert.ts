@@ -23,6 +23,17 @@ export default function deleteItemAlert(id: number) {
     });
   }
 
+export function updateItemAlert() {
+  Swal.fire({
+    position: "top-end",
+    icon: "success",
+    title: "Sucesso",
+    text: "Jogador atualizado com sucesso",
+    showConfirmButton: false,
+    timer: 1500
+  });
+}
+
 export function saveItemAlert() {
   Swal.fire({
     position: "top-end",

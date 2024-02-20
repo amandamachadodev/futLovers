@@ -2,8 +2,9 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
 import { getPlayerId, getPlayers, getTeams, updatePlayer } from "@/src/util/api";
-import { errorAlert, saveItemAlert } from "@/src/util/sweetAlert";
+import { errorAlert, updateItemAlert } from "@/src/util/sweetAlert";
 import { Players, Teams } from "@/src/util/definition";
+import Link from "next/link";
 
 export default function Page({teams, players}) {
   const [player, setPlayer] = useState({
@@ -12,7 +13,8 @@ export default function Page({teams, players}) {
     team_id: players.team_id,
     team: players.team.name
   });
-  const { id } = useRouter().query;
+  const  { query: { id }, } = useRouter();
+  const  router = useRouter();
   
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     if (player.name === '' || player.age === 0 || player.team_id === 0 ||  player.age === '') {
@@ -21,11 +23,14 @@ export default function Page({teams, players}) {
     }
     event.preventDefault();
     await updatePlayer(id, player);
-    return saveItemAlert();
+    updateItemAlert();
+    router.push(`/`);
   }
 
   
   return (
+    <>
+    <Link href={`/`}>{`< back`}</Link>
     <form onSubmit={onSubmit}>
       <input
         type="text"
@@ -49,8 +54,9 @@ export default function Page({teams, players}) {
           <option key={team.id} value={team.id}>{team.name}</option>
           ))}
       </select>
-      <button type="submit">Submit</button>
+      <button type="submit">Save</button>
     </form>
+    </>
   )
 }
 

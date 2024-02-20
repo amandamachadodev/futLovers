@@ -1,6 +1,7 @@
 import { FormEvent } from 'react';
 import { errorAlert, saveItemAlert } from './sweetAlert';
 import { PlayerUpdate, Players, Teams } from './definition';
+import { redirect } from 'next/navigation';
 
 export async function createPlayer(event: FormEvent<HTMLFormElement>) {
     const formData = new FormData(event.currentTarget);
