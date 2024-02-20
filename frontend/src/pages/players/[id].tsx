@@ -1,26 +1,30 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import { Teams } from "@/src/util/definition";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
+import { getPlayerId, getPlayers, getTeams, updatePlayer } from "@/src/util/api";
+import { errorAlert, saveItemAlert } from "@/src/util/sweetAlert";
+import { Players, Teams } from "@/src/util/definition";
 
 export default function Page({teams, players}) {
+  const [player, setPlayer] = useState({
+    name: players.name,
+    age: players.age,
+    team_id: players.team_id,
+    team: players.team.name
+  });
   const { id } = useRouter().query;
-  async function onSubmit() {
-      const data = {
-        name: player.name,
-        age: Number(player.age),
-        team_id: Number(player.team_id),
-      }
-      const response = await fetch(`http://localhost:3000/player/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(data),
-      headers: { 'Content-Type': 'application/json' }
-    })
-    console.log(response);
+  
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    if (player.name === '' || player.age === 0 || player.team_id === 0 ||  player.age === '') {
+      event.preventDefault()
+      return errorAlert();
+    }
+    event.preventDefault();
+    await updatePlayer(id, player);
+    return saveItemAlert();
   }
 
-  const [player, setPlayer] = useState({
-    name: players.name, age: players.age, team_id: players.team_id, team: players.team.name});
+  
   return (
     <form onSubmit={onSubmit}>
       <input
@@ -40,7 +44,7 @@ export default function Page({teams, players}) {
         onChange={({target}) => setPlayer({...player, team_id: target.value})}
       >
         <option selected value={player.team_id}>{player.team}</option>
-      {teams?.map(team => ( 
+      {teams?.map((team: Teams) => ( 
           player.team_id === team.id ? '' :
           <option key={team.id} value={team.id}>{team.name}</option>
           ))}
@@ -51,10 +55,9 @@ export default function Page({teams, players}) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await fetch('http://localhost:3000/');
-  const players = await res.json();
+  const players = await getPlayers();
   
-  const paths = players.map(player => {
+  const paths = players.map((player: Players) => {
     return { params: { id: player.id.toString() } }
   });
   return { paths, fallback: false }
@@ -62,12 +65,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { id } = context.params;
-  const res = await fetch(`http://localhost:3000/player/${id}`);
-  const players: Player = await res.json();
-
-  const response = await fetch(`http://localhost:3000/team`);
-  const teams: Teams = await response.json();
-  console.log(players);
+  const players = await getPlayerId(id);
+  const teams = await getTeams();
     
   return { props: { players, teams }, revalidate: 10 } 
 }

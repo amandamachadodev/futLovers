@@ -3,7 +3,9 @@ import Link from "next/link";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { RiDeleteBin7Line } from "react-icons/ri";
 import { Players } from "../util/definition";
-import handleClick from "../util/sweetAlert";
+import deleteItemAlert from "../util/sweetAlert";
+import { getPlayers } from "../util/api";
+
 
 export default function Table({ players }: Players) {
   return (
@@ -21,7 +23,7 @@ export default function Table({ players }: Players) {
           </tr>
         </thead>
         <tbody>
-          {players?.map(player => (
+          {players?.map((player: Players) => (
             <tr key={player.id}>
               <td>{player.id}</td>
               <td>{player.name}</td>
@@ -30,7 +32,7 @@ export default function Table({ players }: Players) {
               <td>
                 <Link href={`players/${player.id}`}><MdOutlineModeEdit/></Link>
                 <span onClick={() => {
-                  handleClick(player.id);
+                  deleteItemAlert(player.id);
                 }}>
                   <RiDeleteBin7Line/>
                 </span>
@@ -42,12 +44,8 @@ export default function Table({ players }: Players) {
     </div>
   )
 }
-export const config = {
-  runtime: 'nodejs', // or "edge"
-}
+
 export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch('http://localhost:3000/');
-  const players: Players = await res.json();
-  
+  const players: Players = await getPlayers();
   return { props: { players }} 
 }

@@ -1,27 +1,26 @@
 import { Teams } from '@/src/util/definition';
-import onSubmitCreate from '@/src/util/submit';
 import { GetStaticProps } from 'next';
+import { getTeams,  createPlayer } from '@/src/util/api';
 
 export default function Form({teams}: Teams) {
   return (
-    <form onSubmit={onSubmitCreate}>
+    <form onSubmit={createPlayer}>
     <input type="text" name="name" />
     <input type="number" name= "age" />
     <select name="team_id">
-    {teams?.map(team => (
+    {teams?.map((team: Teams) => (
           <option key={team.id} value={team.id}>
               {team.name}
           </option>
         ))}
     </select>
-    <button type="submit">Submit</button>
+    <button type="submit">Salvar</button>
   </form>
   )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch('http://localhost:3000/team');
-  const teams: Teams = await res.json();
+  const teams: Teams = await getTeams();
     
   return { props: { teams }, revalidate: 10 } 
 }

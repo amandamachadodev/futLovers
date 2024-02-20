@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 import { deletePlayer } from "./api";
 
-export default function handleClick(id) {
+export default function deleteItemAlert(id: number) {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -15,10 +15,33 @@ export default function handleClick(id) {
         await deletePlayer(id);
         Swal.fire({
           title: "Deleted!",
-          text: "Your file has been deleted.",
-          icon: "success"
+          icon: "success",
+          showCancelButton: true,
         });
         ;
-      }
+      } 
     });
   }
+
+export function saveItemAlert() {
+  Swal.fire({
+    position: "top-end",
+    icon: "success",
+    title: "Sucesso",
+    text: "Jogador cadastrado com sucesso",
+    showConfirmButton: false,
+    timer: 1500
+  });
+  setTimeout(() => {
+    window.location.reload();
+  }, 2000)
+  
+}
+
+export function errorAlert() {
+  Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: "Todos os campos precisam estar preenchidos!"
+  });
+}
