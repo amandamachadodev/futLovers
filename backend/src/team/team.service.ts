@@ -15,11 +15,7 @@ export class TeamService {
   }
 
   async findAll(): Promise<Team[] | void> {
-    const teams = await this.prisma.team.findMany();
-    if (!teams) {
-      throw new NotFoundException('Não existe nenhum time');
-    }
-    return teams;
+    return await this.prisma.team.findMany();
   }
 
   async findOne(id: number): Promise<Team | void> {

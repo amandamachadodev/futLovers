@@ -18,16 +18,11 @@ export class PlayerService {
   }
 
   async findAll(): Promise<Player[] | void> {
-    const players = await this.prisma.player.findMany({
+    return await this.prisma.player.findMany({
       include: {
         team: true,
       },
     });
-
-    if (!players) {
-      throw new NotFoundException('Não existe nenhum jogador');
-    }
-    return players;
   }
 
   async findOne(id: number): Promise<Player | void> {
