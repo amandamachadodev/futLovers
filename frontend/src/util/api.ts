@@ -18,3 +18,10 @@ export default async function onSubmitCreate(event: FormEvent<HTMLFormElement>) 
   console.log(data)
   // ...
 }
+
+export async function deletePlayer(id) {
+  await fetch(`http://localhost:3000/player/${id}`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' }
+  })
+}

@@ -1,8 +1,9 @@
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { RiDeleteBin7Line } from "react-icons/ri";
 import { Players } from "../util/definition";
+import handleClick from "../util/sweetAlert";
 
 export default function Table({ players }: Players) {
   return (
@@ -28,7 +29,11 @@ export default function Table({ players }: Players) {
               <td>{Intl.DateTimeFormat('pt-BR').format(new Date(player.created_at))}</td>
               <td>
                 <Link href={`players/${player.id}`}><MdOutlineModeEdit/></Link>
-                <RiDeleteBin7Line/>
+                <span onClick={() => {
+                  handleClick(player.id);
+                }}>
+                  <RiDeleteBin7Line/>
+                </span>
               </td>
             </tr>
           ))}
@@ -37,10 +42,12 @@ export default function Table({ players }: Players) {
     </div>
   )
 }
-
-export const getStaticProps: GetStaticProps = async () => {
+export const config = {
+  runtime: 'nodejs', // or "edge"
+}
+export const getServerSideProps: GetServerSideProps = async () => {
   const res = await fetch('http://localhost:3000/');
   const players: Players = await res.json();
   
-  return { props: { players }, revalidate: 3 } 
+  return { props: { players }} 
 }
