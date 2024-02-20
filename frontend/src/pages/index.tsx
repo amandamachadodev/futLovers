@@ -11,7 +11,6 @@ import Header from "../ui/components/header";
 
 export default function Page({ players }: Player) {
   const router = useRouter();
-  const refreshData = () => {router.replace(router.asPath)};
   return (
     <div>
       <Header/>
@@ -37,8 +36,7 @@ export default function Page({ players }: Player) {
               <td>
                 <Link href={`players/${player.id}`}><MdOutlineModeEdit/></Link>
                 <span onClick={async () => {
-                  await deleteItemAlert(player.id);
-                  refreshData();
+                  deleteItemAlert(player.id, () => router.replace(router.asPath));
                 }
                 }>
                   <RiDeleteBin7Line/>

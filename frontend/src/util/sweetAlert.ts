@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 import { deletePlayer } from "./api";
 
-export default async function deleteItemAlert(id: number) {
+export default async function deleteItemAlert(id: number, refresh: () => void) {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -17,7 +17,7 @@ export default async function deleteItemAlert(id: number) {
           title: "Deleted!",
           icon: "success",
           showCancelButton: true,
-        });
+        }).then(refresh);
       }
     });
   }
