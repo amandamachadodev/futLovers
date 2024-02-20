@@ -2,14 +2,19 @@ import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { RiDeleteBin7Line } from "react-icons/ri";
-import { Players } from "../util/definition";
+import { Player } from "../util/definition";
 import deleteItemAlert from "../util/sweetAlert";
 import { getPlayers } from "../util/api";
+import { useRouter } from "next/router";
+import Header from "../ui/components/header";
 
 
-export default function Page({ players }: Players) {
+export default function Page({ players }: Player) {
+  const router = useRouter();
+  const refreshData = () => {router.replace(router.asPath)};
   return (
     <div>
+      <Header/>
       <h1>Players</h1>
       <Link href={'/players/new'}><button type="button">Add player</button></Link>
       <table>
@@ -23,7 +28,7 @@ export default function Page({ players }: Players) {
           </tr>
         </thead>
         <tbody>
-          {players?.map((player: Players) => (
+          {players?.map((player: Player) => (
             <tr key={player.id}>
               <td>{player.id}</td>
               <td>{player.name}</td>
@@ -31,9 +36,11 @@ export default function Page({ players }: Players) {
               <td>{Intl.DateTimeFormat('pt-BR').format(new Date(player.created_at))}</td>
               <td>
                 <Link href={`players/${player.id}`}><MdOutlineModeEdit/></Link>
-                <span onClick={() => {
-                  deleteItemAlert(player.id);
-                }}>
+                <span onClick={async () => {
+                  await deleteItemAlert(player.id);
+                  refreshData();
+                }
+                }>
                   <RiDeleteBin7Line/>
                 </span>
               </td>
@@ -46,6 +53,6 @@ export default function Page({ players }: Players) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const players: Players = await getPlayers();
+  const players: Player = await getPlayers();
   return { props: { players }} 
 }

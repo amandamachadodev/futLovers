@@ -1,7 +1,6 @@
 import { FormEvent } from 'react';
 import { errorAlert, saveItemAlert } from './sweetAlert';
-import { PlayerUpdate, Players, Teams } from './definition';
-import { redirect } from 'next/navigation';
+import { PlayerUpdate, Player, Team } from './definition';
 
 export async function createPlayer(event: FormEvent<HTMLFormElement>) {
     const formData = new FormData(event.currentTarget);
@@ -30,21 +29,21 @@ export async function deletePlayer(id: number) {
   })
 }
 
-export async function getPlayerId(id: string) {
+export async function getPlayerById(id: string) {
   const res = await fetch(`http://localhost:3000/player/${id}`);
-  const players: Players = await res.json();
+  const players: Player = await res.json();
   return players;
 }
 
 export async function getTeams() {
   const response = await fetch(`http://localhost:3000/team`);
-  const teams: Teams = await response.json();
+  const teams: Team = await response.json();
   return teams;
 }
 
 export async function getPlayers() {
   const response = await fetch(`http://localhost:3000/`);
-  const players: Players = await response.json();
+  const players: Player = await response.json();
   return players;
 }
 
