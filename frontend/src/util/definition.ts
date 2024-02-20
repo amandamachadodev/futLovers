@@ -1,8 +1,8 @@
 export type Team = {
   id: number;
   name: string;
-  created_at: Date;
-  updated_at: Date;
+  created_at?: Date;
+  updated_at?: Date;
 }
 
 export type Player = {
@@ -27,3 +27,5 @@ export type PlayerUpdate = {
   team_id: number;
   team: string;
 }
+
+//remote
