@@ -1,19 +1,8 @@
+import { GetStaticProps } from "next";
 import Link from "next/link";
-
-export type Players = {
-  id: number;
-  name: string;
-  age: number;
-  team_id: number; //remover duplicado
-  created_at: Date;
-  updated_at: Date;
-  team: {
-    id: number;
-    name: string;
-    created_at: Date;
-    updated_at: Date;
-  }
-}
+import { MdOutlineModeEdit } from "react-icons/md";
+import { RiDeleteBin7Line } from "react-icons/ri";
+import { Players } from "../util/definition";
 
 export default function Table({ players }: Players) {
   return (
@@ -27,6 +16,7 @@ export default function Table({ players }: Players) {
             <th>Name</th>
             <th>Team</th>
             <th>Creation date</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -36,6 +26,10 @@ export default function Table({ players }: Players) {
               <td>{player.name}</td>
               <td>{player.team.name}</td>
               <td>{Intl.DateTimeFormat('pt-BR').format(new Date(player.created_at))}</td>
+              <td>
+                <Link href={`players/${player.id}`}><MdOutlineModeEdit/></Link>
+                <RiDeleteBin7Line/>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -44,7 +38,7 @@ export default function Table({ players }: Players) {
   )
 }
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch('http://localhost:3000/');
   const players: Players = await res.json();
   
