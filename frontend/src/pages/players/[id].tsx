@@ -1,7 +1,7 @@
 'use client'
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
 import { useRouter } from "next/router";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useCallback, useEffect, useState } from "react";
 import { getPlayerById, getPlayers, getTeams, updatePlayer } from "@/src/util/api";
 import { errorAlert, updateItemAlert } from "@/src/util/sweetAlert";
 import { Player, Team } from "@/src/util/definition";
@@ -14,8 +14,7 @@ export default function Page({teams}: Team) {
   const [player, setPlayer] = useState({
     name: '',
     age: 0,
-    team_id: 0,
-    team: ''
+    team_id: 0
   });
   const  router = useRouter();
   
@@ -24,28 +23,25 @@ export default function Page({teams}: Team) {
       const data = await getPlayerById(router.query.id);
       setPlayer({
         name: data.name,
-        age: data.age,
-        team_id: data.team_id,
-        team: data.team.name
+        age: +data.age,
+        team_id: data.team_id
       })
     };
     fetchData().then(() => setLoading(false));
     ;
-  }, [router.query.id])
+  }, [])
   
   const onSubmit = useCallback(async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
     if (player.name === '' || player.age === 0 || player.team_id === 0) {
-      event.preventDefault()
       return errorAlert();
     }
-    event.preventDefault();
     await updatePlayer(router.query.id, player);
     updateItemAlert();
     router.push(`/`);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [player.name, player.age, player.team_id])
 
-  
   return (
     <div>
       <Header/>
@@ -56,22 +52,24 @@ export default function Page({teams}: Team) {
           type="text"
           name="name"
           value={player.name}
-          onChange={({target}) => setPlayer({...player, name: target.value})}
+          onChange={({target}) => setPlayer((currentPlayer) => ({...currentPlayer, name: target.value}))}
         />
         <input
           type="number"
           name= "age"
           value={player.age}
-          onChange={({target}) => setPlayer({...player, age: +target.value})}
+          onChange={({target}) => setPlayer((currentPlayer) => ({...currentPlayer, age: +target.value}))}
         />
         <select
           name="team_id"
-          onChange={({target}) => setPlayer({...player, team_id: +target.value})}
+          onChange={({target}) => setPlayer((currentPlayer) => ({...currentPlayer, team_id: +target.value}))}
+          value={player.team_id}
         >
-          <option selected value={player.team_id}>{player.team}</option>
-        {teams?.map((team: Team) => ( 
-            player.team_id === team.id ? '' :
-            <option key={team.id} value={team.id}>{team.name}</option>
+        {teams?.map((team: Team) => (
+            <option
+              selected={+player.team_id === +team.id}
+              key={team.id} value={team.id}>{team.name}
+            </option>
             ))}
         </select>
         <button type="submit">Save</button>
@@ -80,22 +78,7 @@ export default function Page({teams}: Team) {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const players = await getPlayers();
-  
-  const paths = players.map((player: Player) => {
-    return { params: { id: player.id.toString() } }
-  });
-  return { paths, fallback: false }
-}
-
-export const getStaticProps: GetStaticProps = async (context) => {
-  const { id } = context.params;
-  const teams = await getTeams();
-    
-  return { props: { teams }, revalidate: 10 } 
-}
-
-function useCallback(arg0: (event: FormEvent<HTMLFormElement>) => Promise<void>, arg1: (string | number)[]) {
-  throw new Error("Function not implemented.");
+export const getServerSideProps: GetServerSideProps = async () => {
+  const teams = await getTeams();  
+  return { props: { teams } } 
 }

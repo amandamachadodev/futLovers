@@ -25,7 +25,4 @@ export type PlayerUpdate = {
   name: string;
   age: number;
   team_id: number;
-  team: string;
 }
-
-//remote
