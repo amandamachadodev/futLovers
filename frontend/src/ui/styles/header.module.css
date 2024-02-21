@@ -1,0 +1,8 @@
+.header:global() {
+    background-color: rgb(53, 53, 194);
+    color: white;
+    font-size: 24px;
+    height: 35px;
+    padding-left: 1%;
+    padding-top: 2px;
+}
