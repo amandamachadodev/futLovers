@@ -4,12 +4,12 @@ import { useRouter } from "next/router";
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import { getPlayerById, getPlayers, getTeams, updatePlayer } from "@/src/util/api";
 import { errorAlert, updateItemAlert } from "@/src/util/sweetAlert";
-import { Player, Team } from "@/src/util/definition";
+import { TeamProps } from "@/src/util/definition";
 import Link from "next/link";
 import Header from "@/src/ui/components/header";
 import Loader from "@/src/ui/components/loader";
 
-export default function Page({teams}: Team) {
+export default function Page({teams}: TeamProps) {
   const [loading, setLoading] = useState(true);
   const [player, setPlayer] = useState({
     name: '',
@@ -29,6 +29,7 @@ export default function Page({teams}: Team) {
     };
     fetchData().then(() => setLoading(false));
     ;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   
   const onSubmit = useCallback(async function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -65,7 +66,7 @@ export default function Page({teams}: Team) {
           onChange={({target}) => setPlayer((currentPlayer) => ({...currentPlayer, team_id: +target.value}))}
           value={player.team_id}
         >
-        {teams?.map((team: Team) => (
+        {teams?.map((team) => (
             <option
               selected={+player.team_id === +team.id}
               key={team.id} value={team.id}>{team.name}
@@ -79,6 +80,6 @@ export default function Page({teams}: Team) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const teams = await getTeams();  
+  const teams: TeamProps = await getTeams();  
   return { props: { teams } } 
 }

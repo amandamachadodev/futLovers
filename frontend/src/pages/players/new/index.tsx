@@ -1,10 +1,10 @@
-import { Team } from '@/src/util/definition';
+import { TeamProps } from '@/src/util/definition';
 import { GetStaticProps } from 'next';
 import { getTeams,  createPlayer } from '@/src/util/api';
 import Link from 'next/link';
 import Header from '@/src/ui/components/header';
 
-export default function Form({teams}: Team) {
+export default function Form({teams}: TeamProps) {
   return (
     <div>
       <Header/>
@@ -13,7 +13,7 @@ export default function Form({teams}: Team) {
         <input type="text" name="name" />
         <input type="number" name= "age" />
         <select name="team_id">
-        {teams?.map((team: Team) => (
+        {teams?.map((team) => (
               <option key={team.id} value={team.id}>
                   {team.name}
               </option>
@@ -26,7 +26,7 @@ export default function Form({teams}: Team) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const teams: Team = await getTeams();
+  const teams: TeamProps = await getTeams();
     
   return { props: { teams }, revalidate: 10 } 
 }

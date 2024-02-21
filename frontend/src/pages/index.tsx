@@ -2,13 +2,13 @@ import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { RiDeleteBin7Line } from "react-icons/ri";
-import { Player } from "../util/definition";
+import { PlayerProps } from "../util/definition";
 import deleteItemAlert from "../util/sweetAlert";
 import { getPlayers } from "../util/api";
 import { useRouter } from "next/router";
 import Header from "../ui/components/header";
 
-export default function Page({ players }: Player) {
+export default function Page({ players }: PlayerProps) {
   const router = useRouter();
   return (
     <div>
@@ -26,7 +26,7 @@ export default function Page({ players }: Player) {
           </tr>
         </thead>
         <tbody>
-          {players.map((player: Player) => (
+          {players.map((player) => (
             <tr key={player.id}>
               <td>{player.id}</td>
               <td>{player.name}</td>
@@ -50,6 +50,6 @@ export default function Page({ players }: Player) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const players: Player = await getPlayers();
+  const players: PlayerProps = await getPlayers();
   return { props: { players } };
 }
