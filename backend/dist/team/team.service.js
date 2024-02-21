@@ -22,11 +22,7 @@ let TeamService = class TeamService {
         });
     }
     async findAll() {
-        const teams = await this.prisma.team.findMany();
-        if (!teams) {
-            throw new common_1.NotFoundException('Não existe nenhum time');
-        }
-        return teams;
+        return await this.prisma.team.findMany();
     }
     async findOne(id) {
         const team = await this.prisma.team.findUnique({

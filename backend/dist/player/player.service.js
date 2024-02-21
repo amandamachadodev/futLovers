@@ -25,15 +25,11 @@ let PlayerService = class PlayerService {
         });
     }
     async findAll() {
-        const players = await this.prisma.player.findMany({
+        return await this.prisma.player.findMany({
             include: {
                 team: true,
             },
         });
-        if (!players) {
-            throw new common_1.NotFoundException('Não existe nenhum jogador');
-        }
-        return players;
     }
     async findOne(id) {
         const player = await this.prisma.player.findUnique({

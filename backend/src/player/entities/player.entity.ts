@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client';
 
-export class Player implements Prisma.PlayerCreateInput {
+export class Player implements Prisma.PlayerUncheckedCreateInput {
   name: string;
   age: number;
   created_at: Date;
