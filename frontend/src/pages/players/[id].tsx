@@ -1,23 +1,40 @@
+'use client'
 import { GetStaticPaths, GetStaticProps } from "next";
 import { useRouter } from "next/router";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { getPlayerById, getPlayers, getTeams, updatePlayer } from "@/src/util/api";
 import { errorAlert, updateItemAlert } from "@/src/util/sweetAlert";
 import { Player, Team } from "@/src/util/definition";
 import Link from "next/link";
 import Header from "@/src/ui/components/header";
+import Loader from "@/src/ui/components/loader";
 
-export default function Page({teams, players}) {
+export default function Page({teams}: Team) {
+  const [loading, setLoading] = useState(true);
   const [player, setPlayer] = useState({
-    name: players.name,
-    age: players.age,
-    team_id: players.team_id,
-    team: players.team.name
+    name: '',
+    age: 0,
+    team_id: 0,
+    team: ''
   });
   const  router = useRouter();
   
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getPlayerById(router.query.id);
+      setPlayer({
+        name: data.name,
+        age: data.age,
+        team_id: data.team_id,
+        team: data.team.name
+      })
+    };
+    fetchData().then(() => setLoading(false));
+    ;
+  }, [])
+  
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
-    if (player.name === '' || player.age === 0 || player.team_id === 0 ||  player.age === '') {
+    if (player.name === '' || player.age === 0 || player.team_id === 0) {
       event.preventDefault()
       return errorAlert();
     }
@@ -32,7 +49,8 @@ export default function Page({teams, players}) {
     <div>
       <Header/>
       <Link href={`/`}>{`< back`}</Link>
-      <form onSubmit={onSubmit}>
+      {loading && <Loader/>}
+      {!loading && <form onSubmit={onSubmit}>
         <input
           type="text"
           name="name"
@@ -43,11 +61,11 @@ export default function Page({teams, players}) {
           type="number"
           name= "age"
           value={player.age}
-          onChange={({target}) => setPlayer({...player, age: target.value})}
+          onChange={({target}) => setPlayer({...player, age: +target.value})}
         />
         <select
           name="team_id"
-          onChange={({target}) => setPlayer({...player, team_id: target.value})}
+          onChange={({target}) => setPlayer({...player, team_id: +target.value})}
         >
           <option selected value={player.team_id}>{player.team}</option>
         {teams?.map((team: Team) => ( 
@@ -56,7 +74,7 @@ export default function Page({teams, players}) {
             ))}
         </select>
         <button type="submit">Save</button>
-      </form>
+      </form>}
     </div>
   )
 }
@@ -72,8 +90,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { id } = context.params;
-  const players = await getPlayerById(id);
   const teams = await getTeams();
     
-  return { props: { players, teams }, revalidate: 10 } 
+  return { props: { teams }, revalidate: 10 } 
 }

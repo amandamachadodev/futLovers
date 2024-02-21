@@ -8,7 +8,6 @@ import { getPlayers } from "../util/api";
 import { useRouter } from "next/router";
 import Header from "../ui/components/header";
 
-
 export default function Page({ players }: Player) {
   const router = useRouter();
   return (
@@ -27,7 +26,7 @@ export default function Page({ players }: Player) {
           </tr>
         </thead>
         <tbody>
-          {players?.map((player: Player) => (
+          {players.map((player: Player) => (
             <tr key={player.id}>
               <td>{player.id}</td>
               <td>{player.name}</td>
@@ -36,7 +35,7 @@ export default function Page({ players }: Player) {
               <td>
                 <Link href={`players/${player.id}`}><MdOutlineModeEdit/></Link>
                 <span onClick={async () => {
-                  deleteItemAlert(player.id, () => router.replace(router.asPath));
+                  deleteItemAlert(player.id, () => router.replace(router.asPath))
                 }
                 }>
                   <RiDeleteBin7Line/>
@@ -52,5 +51,5 @@ export default function Page({ players }: Player) {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const players: Player = await getPlayers();
-  return { props: { players }} 
+  return { props: { players } };
 }
