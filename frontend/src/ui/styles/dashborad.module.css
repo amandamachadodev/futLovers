@@ -1,0 +1,55 @@
+.content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-right: 20%;
+    margin-left: 10%;
+    margin-top: 2%;
+}
+
+.table {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 3%;
+    padding-left: 10%;
+    padding-right: 17%;
+    
+}
+
+.thead {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.tr {
+    border: solid rgb(206, 199, 199) 1px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1%;
+}
+
+.notfound {
+    color:gray;
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
+}
+
+.link{
+    text-decoration:none;
+}
+
+.team {
+    margin-left: 6%;
+}
+
+.date {
+    margin-left: 6%;
+}
+
+.name {
+    margin-left: 4%;
+}
