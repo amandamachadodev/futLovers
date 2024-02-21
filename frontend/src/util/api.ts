@@ -29,7 +29,7 @@ export async function deletePlayer(id: number) {
   })
 }
 
-export async function getPlayerById(id: string) {
+export async function getPlayerById(id: string | string[] | undefined) {
   const res = await fetch(`http://localhost:3000/player/${id}`);
   const players: Player = await res.json();
   return players;

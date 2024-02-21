@@ -31,9 +31,9 @@ export default function Page({teams}: Team) {
     };
     fetchData().then(() => setLoading(false));
     ;
-  }, [])
+  }, [router.query.id])
   
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+  const onSubmit = useCallback(async function onSubmit(event: FormEvent<HTMLFormElement>) {
     if (player.name === '' || player.age === 0 || player.team_id === 0) {
       event.preventDefault()
       return errorAlert();
@@ -42,7 +42,8 @@ export default function Page({teams}: Team) {
     await updatePlayer(router.query.id, player);
     updateItemAlert();
     router.push(`/`);
-  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [player.name, player.age, player.team_id])
 
   
   return (
@@ -93,4 +94,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const teams = await getTeams();
     
   return { props: { teams }, revalidate: 10 } 
+}
+
+function useCallback(arg0: (event: FormEvent<HTMLFormElement>) => Promise<void>, arg1: (string | number)[]) {
+  throw new Error("Function not implemented.");
 }
