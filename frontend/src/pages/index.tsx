@@ -45,6 +45,7 @@ export default function Page({ players }: PlayerProps) {
           ))}
         </tbody>
       </table>
+      {players.length === 0 && <tr><td>There are no registered players...</td></tr>}
     </div>
   )
 }
