@@ -29,8 +29,8 @@ export default function Page({teams}: TeamProps) {
         team_id: data.team_id
       })
     };
-    fetchData().then(() => setLoading(false));
-    ;
+    fetchData()
+      .then(() => setTimeout(() => {setLoading(false)}, 3000));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   
