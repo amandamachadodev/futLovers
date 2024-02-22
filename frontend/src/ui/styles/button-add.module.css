@@ -1,0 +1,18 @@
+.buttonadd {
+    align-items: center;
+    background-color:rgb(132, 132, 248);
+    border: none;
+    border-radius: 2%;
+    color: white;
+    display: flex;
+    font-size: 16px;
+    font-weight: bold;
+    height: 40px;
+    justify-content: center;
+    margin-top: 20%;
+    width: 150%;
+}
+
+.buttonadd:hover {
+    background-color:rgb(158, 158, 245);
+}

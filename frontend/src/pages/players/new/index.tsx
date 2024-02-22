@@ -3,23 +3,30 @@ import { GetStaticProps } from 'next';
 import { getTeams,  createPlayer } from '@/src/util/api';
 import Link from 'next/link';
 import Header from '@/src/ui/components/header';
+import style from '@/src/ui/styles/form.module.css';
+import { inter } from '@/src/ui/fonts';
 
 export default function Form({teams}: TeamProps) {
   return (
-    <div>
+    <div className={inter.className}>
       <Header/>
-      <Link href={`/`}>{`< back`}</Link>
-      <form onSubmit={createPlayer}>
-        <input type="text" name="name" />
-        <input type="number" name= "age" />
-        <select name="team_id">
+      <div className={style.content}>
+        <h1>Insert player</h1>
+        <Link className={style.link} href={`/`}>{`< back`}</Link>
+      </div>
+      <form className={style.form} onSubmit={createPlayer}>
+        <div className={style.input}>
+          <input className={style.items} type="text" name="name" placeholder="Name"/>
+          <input className={style.items} type="number" name= "age" placeholder="Age"/>
+        </div>
+        <select className={style.select} name="team_id">
         {teams?.map((team) => (
               <option key={team.id} value={team.id}>
                   {team.name}
               </option>
             ))}
         </select>
-        <button type="submit">Salvar</button>
+        <button className={style.button} type="submit">Salvar</button>
       </form>
   </div>
   )
