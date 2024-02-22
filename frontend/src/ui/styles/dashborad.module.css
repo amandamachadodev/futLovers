@@ -53,3 +53,9 @@
 .name {
     margin-left: 4%;
 }
+
+.icons {
+    display: flex;
+    flex-direction: row;
+    width: 4%;
+}

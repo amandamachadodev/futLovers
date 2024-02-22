@@ -22,7 +22,7 @@ export default function Page({ players }: PlayerProps) {
       <Link className={style.link} href={'/players/new'}><ButtonAdd/></Link>
       </div>
       <table className={style.table}>
-        <thead >
+        <thead>
           <tr className={style.tr}>
             <th>Id</th>
             <th className={style.name}>Name</th>
@@ -38,13 +38,17 @@ export default function Page({ players }: PlayerProps) {
               <td>{player.name}</td>
               <td>{player.team.name}</td>
               <td>{Intl.DateTimeFormat('pt-BR').format(new Date(player.created_at))}</td>
-              <td>
-                <Link href={`players/${player.id}`}><MdOutlineModeEdit/></Link>
+              <td className={style.icons}>
+                <Link href={`players/${player.id}`}>
+                  <MdOutlineModeEdit color='gray' size={20}/>
+                </Link>
                 <span onClick={async () => {
                   deleteItemAlert(player.id, () => router.replace(router.asPath))
                 }
                 }>
-                  <RiDeleteBin7Line/>
+                  <span className={style.pen}>
+                    <RiDeleteBin7Line color='gray' size={20}/>
+                  </span>
                 </span>
               </td>
             </tr>
