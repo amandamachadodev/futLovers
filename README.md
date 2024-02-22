@@ -6,7 +6,7 @@ A aplicação começou a ser inmplementada a partir no backend, onde foram usada
 Ao finalizar boa parte do backend inciei a criação do frontend integrando-o ao servidor, para isso utilizei Next.js + CSS MODULES + Sweet Alert 2 + React Icons.
 Depois de finalizar o projeto implementei testes unitários para a camada service com Jest.
 
-Funcionalidades criadas no backend:
+### Funcionalidades criadas no backend:
 - Criar jogador
 - Editar jogador
 - Remover Jogador
@@ -39,7 +39,7 @@ Funcionalidades criadas no backend:
 
 
 
-### Como ver o projeto funcionando 
+## Como ver o projeto funcionando 
  
  * Passo 1 - clonar o repositório
    * Rodar o comando 'git clone git@github.com:amandamachadodev/futLovers.git' no seu terminal, em uma pasta onde você quiser que fique salvo o diretório do projeto.
