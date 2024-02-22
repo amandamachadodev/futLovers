@@ -19,7 +19,7 @@ Funcionalidades criadas no backend:
 - Bucar time pelo id
 - Relação de um para muitos entra as tabelas time e jogador
 
-Funcionalidades criadas no frontend:
+### Funcionalidades criadas no frontend:
 - Pagina '/' que lista jogadores 
     - Possui 1 botão 'ADD JOGADOR' que redireciona para o caminho '/jogadores/novo' onde é possível adicionar um novo jogador.
     - Possui 1 ícone que redireciona a página para a o caminho '/jogador/{id}' onde é possível editar o jogador.
@@ -39,7 +39,7 @@ Funcionalidades criadas no frontend:
 
 
 
-Como ver o projeto funcionando 
+### Como ver o projeto funcionando 
  
  * Passo 1 - clonar o repositório
    * Rodar o comando 'git clone git@github.com:amandamachadodev/futLovers.git' no seu terminal, em uma pasta onde você quiser que fique salvo o diretório do projeto.
