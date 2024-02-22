@@ -8,6 +8,8 @@ import { TeamProps } from "@/src/util/definition";
 import Link from "next/link";
 import Header from "@/src/ui/components/header";
 import Loader from "@/src/ui/components/loader";
+import style from '@/src/ui/styles/form.module.css';
+import { inter } from "@/src/ui/fonts";
 
 export default function Page({teams}: TeamProps) {
   const [loading, setLoading] = useState(true);
@@ -44,24 +46,33 @@ export default function Page({teams}: TeamProps) {
   }, [player.name, player.age, player.team_id])
 
   return (
-    <div>
+    <div className={inter.className}>
       <Header/>
-      <Link href={`/`}>{`< back`}</Link>
+      <div className={style.content}>
+        <h1>Edit player</h1>
+        <Link className={style.link} href={`/`}>{`< back`}</Link>
+      </div>
       {loading && <Loader/>}
-      {!loading && <form onSubmit={onSubmit}>
-        <input
-          type="text"
-          name="name"
-          value={player.name}
-          onChange={({target}) => setPlayer((currentPlayer) => ({...currentPlayer, name: target.value}))}
-        />
-        <input
-          type="number"
-          name= "age"
-          value={player.age}
-          onChange={({target}) => setPlayer((currentPlayer) => ({...currentPlayer, age: +target.value}))}
-        />
+      {!loading && 
+      <form onSubmit={onSubmit} className={style.form}>
+        <div className={style.input}>
+          <input
+            className={style.items}
+            type="text"
+            name="name"
+            value={player.name}
+            onChange={({target}) => setPlayer((currentPlayer) => ({...currentPlayer, name: target.value}))}
+          />
+          <input
+            className={style.items}
+            type="number"
+            name= "age"
+            value={player.age}
+            onChange={({target}) => setPlayer((currentPlayer) => ({...currentPlayer, age: +target.value}))}
+          />
+        </div>
         <select
+        className={style.select}
           name="team_id"
           onChange={({target}) => setPlayer((currentPlayer) => ({...currentPlayer, team_id: +target.value}))}
           value={player.team_id}
@@ -73,7 +84,7 @@ export default function Page({teams}: TeamProps) {
             </option>
             ))}
         </select>
-        <button type="submit">Save</button>
+        <button className={style.button} type="submit">Save</button>
       </form>}
     </div>
   )
