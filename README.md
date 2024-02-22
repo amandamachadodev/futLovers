@@ -42,17 +42,17 @@ Funcionalidades criadas no frontend:
 Como ver o projeto funcionando 
  
  * Passo 1 - clonar o repositório
-   Rodar o comando 'git clone git@github.com:amandamachadodev/futLovers.git' no seu terminal, em uma pasta onde você quiser que fique salvo o diretório do projeto.
+   * Rodar o comando 'git clone git@github.com:amandamachadodev/futLovers.git' no seu terminal, em uma pasta onde você quiser que fique salvo o diretório do projeto.
  * Passo 2 - baixar as dependências do backend
-   Para isso é necessário estar o diretório raiz do backend /backend e rodar o comando 'npm i'
+   * Para isso é necessário estar o diretório raiz do backend /backend e rodar o comando 'npm i'
  * Passo 3 - baixar as depenências do frontend
-   Para isso é necessário estar o diretório raiz do frontend /frontend e rodar o comando 'npm i'
+   * Para isso é necessário estar o diretório raiz do frontend /frontend e rodar o comando 'npm i'
  * Passo 4 - criar um banco de dados mysql com o nome nestprismadb
  * Passo 5 - adicionar sua DATABASE_URL no arquivo .env
  * Passo 6 - rodar o backend
-    Para isso é necessário estar o diretório raiz do backend /backend e rodar o comando 'npm run start dev'
+    * Para isso é necessário estar o diretório raiz do backend /backend e rodar o comando 'npm run start dev'
  * Passo 7 - rodar o frontend
-   Para isso é necessário estar o diretório raiz do frontend /frontend e rodar o comando 'npm run dev'
+   * Para isso é necessário estar o diretório raiz do frontend /frontend e rodar o comando 'npm run dev'
  * Passo 8 - Abrir a apricação no brower
-   Abrir a aplicação do browser com a url localhost:3001/
+   * Abrir a aplicação do browser com a url localhost:3001/
 
