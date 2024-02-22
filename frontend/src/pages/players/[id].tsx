@@ -2,9 +2,9 @@
 import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import { FormEvent, useCallback, useEffect, useState } from "react";
-import { getPlayerById, getPlayers, getTeams, updatePlayer } from "@/src/util/api";
-import { errorAlert, updateItemAlert } from "@/src/util/sweetAlert";
-import { TeamProps } from "@/src/util/definition";
+import { getPlayerById, getPlayers, getTeams, updatePlayer } from "@/src/lib/api";
+import { errorAlert, updateItemAlert } from "@/src/lib/sweetAlert";
+import { TeamProps } from "@/src/lib/definition";
 import Link from "next/link";
 import Header from "@/src/ui/components/header";
 import Loader from "@/src/ui/components/loader";

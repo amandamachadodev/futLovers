@@ -1,6 +1,6 @@
-import { TeamProps } from '@/src/util/definition';
+import { TeamProps } from '@/src/lib/definition';
 import { GetStaticProps } from 'next';
-import { getTeams,  createPlayer } from '@/src/util/api';
+import { getTeams,  createPlayer } from '@/src/lib/api';
 import Link from 'next/link';
 import Header from '@/src/ui/components/header';
 import style from '@/src/ui/styles/form.module.css';
