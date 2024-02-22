@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTeamDto } from './dto/create-team.dto';
 import { UpdateTeamDto } from './dto/update-team.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { Team } from '@prisma/client';
 
 @Injectable()
@@ -24,7 +24,7 @@ export class TeamService {
     });
 
     if (!team) {
-      throw new NotFoundException('Time não encontrado');
+      throw new NotFoundException();
     }
     return team;
   }
@@ -35,7 +35,7 @@ export class TeamService {
     });
 
     if (!team) {
-      throw new NotFoundException('Time não encontrado');
+      throw new NotFoundException();
     }
     return this.prisma.team.update({
       where: { id },
@@ -49,7 +49,7 @@ export class TeamService {
     });
 
     if (!team) {
-      throw new NotFoundException('Time não encontrado');
+      throw new NotFoundException();
     }
     const deleteTeam = await this.prisma.team.delete({
       where: { id },

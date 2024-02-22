@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePlayerDto } from './dto/create-player.dto';
 import { UpdatePlayerDto } from './dto/update-player.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { Player } from '@prisma/client';
 
 @Injectable()
@@ -34,7 +34,7 @@ export class PlayerService {
     });
 
     if (!player) {
-      throw new NotFoundException('Jogador não encontrado');
+      throw new NotFoundException();
     }
     return player;
   }
@@ -48,7 +48,7 @@ export class PlayerService {
     });
 
     if (!player) {
-      throw new NotFoundException('Jogador não encontrado');
+      throw new NotFoundException();
     }
 
     return this.prisma.player.update({
@@ -63,13 +63,10 @@ export class PlayerService {
   async remove(id: number): Promise<Player> {
     const player = await this.prisma.player.findUnique({
       where: { id },
-      include: {
-        team: true,
-      },
     });
 
     if (!player) {
-      throw new NotFoundException('Jogador não encontrado');
+      throw new NotFoundException();
     }
     return this.prisma.player.delete({
       where: { id },
