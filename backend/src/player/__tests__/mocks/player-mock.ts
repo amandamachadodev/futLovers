@@ -43,14 +43,13 @@ export const fakePlayers = [
   },
 ];
 
-// E depois nosso objeto de mock do Prisma, retornando os dados falsos
 const prismaMock = {
   player: {
     create: jest.fn().mockReturnValue(fakePlayers[0]),
     findMany: jest.fn().mockResolvedValue(fakePlayers),
     findUnique: jest.fn().mockResolvedValue(fakePlayers[0]),
     update: jest.fn().mockResolvedValue(fakePlayers[0]),
-    delete: jest.fn(), // O método delete não retorna nada
+    delete: jest.fn(),
   },
 };
 export default prismaMock;
