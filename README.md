@@ -52,6 +52,8 @@ Depois de finalizar o projeto implementei testes unitários para a camada servic
  * Passo 5 - adicionar sua DATABASE_URL no arquivo .env
  * Passo 6 - rodar o backend
     * Para isso é necessário estar o diretório raiz do backend /backend e rodar o comando `npm run start dev`
+    * Criar a migration com o comando `prisma migration dev`
+    * Rodar o seed que popula a tabela team `npx prisma db seed`
  * Passo 7 - rodar o frontend
    * Para isso é necessário estar o diretório raiz do frontend /frontend e rodar o comando `npm run dev`
  * Passo 8 - Abrir a apricação no brower
