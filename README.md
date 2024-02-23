@@ -40,6 +40,7 @@ Depois de finalizar o projeto implementei testes unitários para a camada servic
 
 
 ## Como ver o projeto funcionando 
+* Versão do node precisa estar setada para `v18.17.0`
  
  * Passo 1 - clonar o repositório
    * Rodar o comando `git clone git@github.com:amandamachadodev/futLovers.git` no seu terminal, em uma pasta onde você quiser que fique salvo o diretório do projeto.
